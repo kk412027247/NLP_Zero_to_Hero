@@ -123,6 +123,21 @@ print(decode_sentence(training_padded[0]))
 print(training_sentences[2])
 print(training_labels[2])
 
+
+weights = model.layers[0].get_weights()[0]
+
+with open('vecs.csv' ,'w', encoding='utf-8') as vecs:
+    for word_num in range(1, vocab_size):
+        embeddings = weights[word_num]
+        vecs.write('\t'.join([str(x) for x in embeddings]) + '\n')
+
+
+
+with open('meta.csv' ,'w', encoding='utf-8') as meta:
+    for word_num in range(1, vocab_size):
+        word = reverse_word_index[word_num]
+        meta.write(word +'\n')
+
 sentence = ["granny starting to fear spiders in the garden might be real",
             "game of thrones season finale showing this sunday night"]
 
@@ -132,3 +147,7 @@ print(model.predict(padded))
 
 # [[9.4231850e-01]
 #  [2.4717601e-05]]
+
+# https://www.youtube.com/watch?v=Y_hzMnRXjhI&list=PLQY2H8rRoyvzDbLUZkbudP-MFQZwNmU4S&index=3
+# https://colab.research.google.com/github/lmoroney/dlaicourse/blob/master/TensorFlow%20In%20Practice/Course%203%20-%20NLP/Course%203%20-%20Week%202%20-%20Lesson%202.ipynb
+
